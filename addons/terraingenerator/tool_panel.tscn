@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://3gshcfsg36me"]
+
+[ext_resource type="Script" path="res://addons/terraingenerator/tool_panel.gd" id="1_a8c5j"]
+
+[node name="ToolPanel" type="VBoxContainer"]
+script = ExtResource("1_a8c5j")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "My Tool"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="xSize" type="SpinBox" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="zSize" type="SpinBox" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Regenerate"
+
+[connection signal="value_changed" from="HBoxContainer/xSize" to="." method="_on_x_size_value_changed"]

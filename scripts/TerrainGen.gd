@@ -4,7 +4,7 @@ extends MeshInstance3D
 
 @export var xSize = 20
 @export var zSize = 20
-@export var max_height = 16
+@export var max_height = 12
 @export var min_height = 1
 @export var frequency = 0.05
 @export var octaves = 3

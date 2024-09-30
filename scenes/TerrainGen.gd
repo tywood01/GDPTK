@@ -1,15 +1,15 @@
 @tool
 extends StaticBody3D
 
-@export var xSize = 25  # Match CHUNK_SIZE
-@export var zSize = 25 # Match CHUNK_SIZE
+@export var xSize = 20  # Match CHUNK_SIZE
+@export var zSize = 20 # Match CHUNK_SIZE
 @export var max_height = 16
 @export var min_height = 1
 @export var frequency = 0.05
 @export var octaves = 3
 @export var lacunarity = 2.0
 @export var persistence = 0.5
-@export var chunk_size = 25 # Ensure this matches CHUNK_SIZE from the chunk script
+@export var chunk_size = 20 # Ensure this matches CHUNK_SIZE from the chunk script
 
 var amplitude = max_height / 2
 

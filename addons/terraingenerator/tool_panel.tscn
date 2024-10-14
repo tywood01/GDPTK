@@ -3,6 +3,8 @@
 [ext_resource type="Script" path="res://addons/terraingenerator/tool_panel.gd" id="1_a8c5j"]
 
 [node name="ToolPanel" type="VBoxContainer"]
+offset_right = 315.0
+offset_bottom = 245.0
 script = ExtResource("1_a8c5j")
 
 [node name="Label" type="Label" parent="."]

@@ -7,12 +7,14 @@ const JUMP_VELOCITY = 4.5
 var look_dir: Vector2
 var camera_sens = 50
 var capMouse    = false
-@onready var camera_3d = $Camera3D
+var sensitivity = 0.005
+@onready var camera = $Camera3D
 
 
 	
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
 
 
 func _physics_process(delta):
@@ -42,20 +44,13 @@ func _physics_process(delta):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	_rotate_camera(delta)
 	move_and_slide()
 
 func _input(event: InputEvent):
-	if event is InputEventMouseMotion: look_dir = event.relative * 0.01
+	if event is InputEventMouseMotion:
+		rotate_y(-event.relative.x * sensitivity)
+		camera.rotate_x(-event.relative.y * sensitivity)
+		camera.rotation.x = clamp(camera.rotation.x, -PI/2, PI/2)
 	
 	if Input.is_action_just_pressed("quit"):
-		$"../".exit_game(name.to_int())
 		get_tree().quit()
-	
-func _rotate_camera(delta: float, sens_mod: float = 1.0):
-		var input = Input.get_vector("look_left", "look_right", "look_down", "look_up")
-		look_dir += input
-		rotation.y -= look_dir.x *camera_sens * delta
-		camera_3d.rotation.x = clamp(camera_3d.rotation.x -look_dir.y *camera_sens * sens_mod * delta, -1.5, 1.5)
-		look_dir = Vector2.ZERO
-		

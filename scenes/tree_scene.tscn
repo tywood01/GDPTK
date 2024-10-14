@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://0na21wbna2o2"]
+
+[ext_resource type="PackedScene" uid="uid://dc2iv8yb6e2c2" path="res://assets/Models/Trees/Tree_01_gradient_green.glb" id="1_umfp3"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Tree_01_gradient_green2" parent="." instance=ExtResource("1_umfp3")]

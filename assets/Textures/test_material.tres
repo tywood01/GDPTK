@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dhhjneumhlluj"]
+
+[ext_resource type="Texture2D" uid="uid://7rhky6q6cmx2" path="res://assets/Textures/sandygrass.jpg" id="1_v47vr"]
+
+[resource]
+albedo_color = Color(0.398126, 0.524338, 0.279823, 1)
+albedo_texture = ExtResource("1_v47vr")
+uv1_scale = Vector3(20, 20, 20)

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://l8257ux2ffvu"]
+
+[ext_resource type="Script" path="res://poisson2d.gd" id="1_313lw"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("1_313lw")

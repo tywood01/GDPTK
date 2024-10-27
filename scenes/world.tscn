@@ -1,12 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://lemu2viuthcg"]
+[gd_scene load_steps=7 format=3 uid="uid://lemu2viuthcg"]
 
 [ext_resource type="Script" path="res://scenes/ChunkManager.gd" id="1_4x4k6"]
 [ext_resource type="PackedScene" uid="uid://2i5p8470f8bt" path="res://scenes/player.tscn" id="1_6axpf"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_rwgxs"]
-frequency = 0.0223
+frequency = 0.0034
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_4wyf3"]
+
+[sub_resource type="GDScript" id="GDScript_57udf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wke1j"]
+script = SubResource("GDScript_57udf")
 
 [node name="Node3D" type="Node3D"]
 
@@ -20,3 +25,4 @@ transform = Transform3D(0.491156, 0.198913, -0.848056, 0.766377, 0.364091, 0.529
 script = ExtResource("1_4x4k6")
 height = SubResource("FastNoiseLite_rwgxs")
 moisture = SubResource("FastNoiseLite_4wyf3")
+mymaterial = SubResource("ShaderMaterial_wke1j")

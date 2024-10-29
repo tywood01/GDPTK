@@ -53,7 +53,7 @@ This project contains design methods for generating procedural 3d terrain & land
 - **Resolution**: Higher values yield a more detailed surface but may affect performance.
 - **Noise and Colors**: Modify the `noise_map` and `planet_color` gradient to achieve different terrain types and visuals.
 
-![Procedural Planet Demo](GodotPlugin-ezgif.com-video-to-gif-converter.mp4)
+![Procedural Planet Demo](GodotPlugin-ezgif.com-video-to-gif-converter.gif)
 
 
 ## TODO:

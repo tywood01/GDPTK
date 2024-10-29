@@ -1,29 +1,31 @@
 # Godot Procedural Generation Tool Kit (GDPTK) 
 
-This project contains design methods for generating procedural 3d terrain & landscapes in the Godot Engine using a combination of custom shaders and noise maps. Surfaces are created and colored based on height variations, with options for detailed customization, including resolution and color gradients.
+This project contains design and implementation methods for generating 3D procedural terrain & landscapes in the Godot Engine using a combination of custom shaders and noise maps. This effect is achieved by taking planes and mutating their positional arguments to fit some noise that is generated or provided by the user. Surfaces are created and colored based on height variations, with options for detailed customization, including resolution and color gradients.
 
 ## Features
 
-- **Procedural Planet Generation**: Customizable sphere resolution, radius, and noise-based terrain deformation.
+- **Procedural Surface and Planet Generation**: Customizable planar & sphere resolution, radius, and noise-based terrain deformation.
 - **Dynamic Shader Coloring**: A shader dynamically colors the planet's surface based on height, with support for gradient textures.
 - **Real-Time Updates**: Any changes in parameters immediately update the planet’s appearance within the editor.
 
 ## Project Structure
 
-**This project contains 3 different methods of generating procedural terrain:
-- **Infinite planar (Wandering) procedural terrain
-  - ***Non-Shader
-  - ***Shader
-- **Planetary Procedural terrain
+This project offers three methods for generating procedural terrain:
+1. **Infinite Planar (Wandering) Procedural Terrain**
+   - *Non-Shader*
+   - *Shader*
+2. **Planetary Procedural Terrain**
 
 ### Files
 
-- *Non-Shader
+#### Non-Shader Planar Files
+- **`TerrainGen.gd`**: Planar terrain generation with parameters `resolution`, `noise_map` (CPU based). 
+
+#### Shader Planar Files
+- **`VertexTerrain.gd`**: Planar terrain generation with parameters `height_scale` (GPU based). Resolution is determined by a clipmap that is a appropriately subdivided plane with differing levels of vertex counts.
 
 
-- *Shader
-
-- * Planetary Files
+#### Planetary Files
 - **`PlanetData.gd`**: Resource class defining planet properties like `radius`, `resolution`, `noise_map`, and `planet_color`. Manages minimum and maximum height calculations based on noise values.
 - **`PlanetMeshFace.gd`**: Responsible for creating and regenerating a single face of the planet mesh based on `PlanetData` properties. Also handles updating normals and indices.
 - **`Planet.gd`**: Main planet node that manages `PlanetMeshFace` nodes. Changes to `PlanetData` properties trigger mesh regeneration and color updates.
@@ -56,7 +58,7 @@ This project contains design methods for generating procedural 3d terrain & land
 ![Procedural Planet Demo](GodotPlugin-ezgif.com-video-to-gif-converter.gif)
 
 
-## TODO:
+## Roadmap:
 - **Adding Clipmap snapping for shader-based planar generation**
 - **Adding Quadtree LOD to non-shader & Planetary based generation**
 - **Noise and Colors Debugging**

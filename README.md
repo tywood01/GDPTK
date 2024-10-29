@@ -62,8 +62,8 @@ This project contains design methods for generating procedural 3d terrain & land
 - **Noise and Colors Debugging**
   
 ## Sources:
-This is a collection of combining and simplifying other people's project to create a flexible starting project.
-Some inspiration was taken from the following sources:
+This is a collection of combining and simplifying other people's project to create a flexible starting project. <br>
+Some inspiration was taken from the following sources: <br>
 https://www.redblobgames.com/maps/terrain-from-noise/#elevation-redistribution
 https://docs.godotengine.org/en/3.0/tutorials/3d/vertex_displacement_with_shaders.html
 https://godotshaders.com/shader/wandering-clipmap-stylized-terrain/

@@ -22,28 +22,11 @@ var HEIGHT_SCALE : int = 50
 const CHUNK_SIZE = 20
 const RENDER_DISTANCE = 4
 
-var terrain_chunks = []
+# Dictionary for storing chunks: key = chunk position (Vector2), value = chunk instance
+var loaded_chunks = {}
 var last_player_chunk_pos = Vector2(-100, -100)
 var update_interval = 0.5
 var time_since_last_update = 0.0
-
-class Quadtree:
-	var chunks = {}
-
-	func insert(chunk_pos: Vector2, chunk):
-		chunks[chunk_pos] = chunk
-	
-	func get_chunk(chunk_pos: Vector2):
-		return chunks.get(chunk_pos, null)
-	
-	func remove(chunk_pos: Vector2):
-		if chunks.has(chunk_pos):
-			chunks.erase(chunk_pos)
-	
-	func get_loaded_chunks():
-		return chunks.keys()
-
-var quadtree = Quadtree.new()
 
 var thread_pool = []
 var chunk_queue = []
@@ -53,6 +36,7 @@ func _ready():
 	var player_pos = get_parent().get_node("PlayerMovement").global_transform.origin
 	var chunk_pos = Vector2(int(player_pos.x / CHUNK_SIZE), int(player_pos.z / CHUNK_SIZE))
 	update_chunks(chunk_pos)
+
 func _process(delta):
 	time_since_last_update += delta
 	
@@ -69,6 +53,7 @@ func _process(delta):
 	# Process finished threads
 	check_thread_results()
 
+# Update the chunks based on the player's position
 func update_chunks(player_chunk_pos: Vector2):
 	var chunks_to_load = []
 	var chunks_to_unload = []
@@ -78,17 +63,16 @@ func update_chunks(player_chunk_pos: Vector2):
 		for z in range(-RENDER_DISTANCE, RENDER_DISTANCE + 1):
 			var chunk = Vector2(player_chunk_pos.x + x, player_chunk_pos.y + z)
 
-			if not quadtree.get_chunk(chunk):
+			if not loaded_chunks.has(chunk):  # Check if chunk is already loaded
 				chunks_to_load.append(chunk)
 			else:
 				# Update resolution of already loaded chunks
-				var chunk_instance = quadtree.get_chunk(chunk)
+				var chunk_instance = loaded_chunks[chunk]
 				var distance = chunk.distance_to(player_chunk_pos)
 				var resolution = determine_resolution(distance)
 
 				if chunk_instance.get("resolution") != resolution:
 					chunks_to_unload.append(chunk)  # Mark for unloading
-					chunks_to_load.append(chunk)  # Mark for loading a new one
 
 	# Unload chunks that are marked (but don't unload too close to the player)
 	for chunk in chunks_to_unload:
@@ -99,12 +83,12 @@ func update_chunks(player_chunk_pos: Vector2):
 	queue_chunks_for_generation(chunks_to_load, player_chunk_pos)
 
 	# Unload chunks outside of render distance (ensure chunks under the player stay loaded)
-	var loaded_chunks = quadtree.get_loaded_chunks()
-	for chunk in loaded_chunks:
+	for chunk in loaded_chunks.keys():
 		if chunk.distance_to(player_chunk_pos) > RENDER_DISTANCE + 1:
 			if chunk.y != player_chunk_pos.y:  # Ensure the floor chunk isn't unloaded
 				unload_chunk(chunk)
 
+# Queue chunks for generation
 func queue_chunks_for_generation(chunks_to_load: Array, player_chunk_pos: Vector2):
 	for chunk in chunks_to_load:
 		var distance = chunk.distance_to(player_chunk_pos)
@@ -117,16 +101,19 @@ func queue_chunks_for_generation(chunks_to_load: Array, player_chunk_pos: Vector
 		# Limit the number of threads to 4 (can be adjusted as needed)
 		if thread_pool.size() < 4:
 			var thread = Thread.new()
-			# Fix: Correct callable passed as method reference, and no thread priority is passed here.
 			thread.start(Callable(self, "_threaded_generate_chunks"))
 			thread_pool.append(thread)
-			
-func unload_chunk(chunk_pos: Vector2):
-	var chunk = quadtree.get_chunk(chunk_pos)
-	if chunk:
-		chunk.queue_free()
-		quadtree.remove(chunk_pos)
 
+# Unload a chunk
+func unload_chunk(chunk_pos: Vector2):
+	if loaded_chunks.has(chunk_pos):
+		print("Unloading chunk: ", chunk_pos)
+		var chunk = loaded_chunks[chunk_pos]
+		chunk.queue_free()  # Free the chunk from memory
+		loaded_chunks.erase(chunk_pos)  # Remove from the dictionary
+		print("Chunk removed from dictionary: ", chunk_pos)
+
+# Generate a chunk
 func _threaded_generate_chunks():
 	while true:
 		mutex.lock()
@@ -143,10 +130,12 @@ func _threaded_generate_chunks():
 		
 		call_deferred("_add_generated_chunk", chunk_pos, new_chunk)
 
+# Add the generated chunk to the scene
 func _add_generated_chunk(chunk_pos: Vector2, chunk: MeshInstance3D):
-	quadtree.insert(chunk_pos, chunk)
+	loaded_chunks[chunk_pos] = chunk
 	add_child(chunk)
 
+# Generate mesh for a chunk
 func generate(chunk_pos: Vector2 = Vector2(0, 0), resolution: int = 2) -> MeshInstance3D:
 	var plane_mesh = PlaneMesh.new()
 	plane_mesh.size = Vector2(size_width, size_depth)
@@ -191,6 +180,7 @@ func determine_resolution(distance: float) -> int:
 	else:
 		return low_resolution
 
+# Check and process finished threads
 func check_thread_results():
 	for thread in thread_pool:
 		if not thread.is_alive():

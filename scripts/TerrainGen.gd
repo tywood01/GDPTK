@@ -2,7 +2,7 @@
 
 extends MeshInstance3D
 
-@export var xSize = 20
+@export var xSize = 10
 @export var zSize = 20
 @export var max_height = 12
 @export var min_height = 1

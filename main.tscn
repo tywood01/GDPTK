@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1bfehof4jpbu"]
+
+[ext_resource type="PackedScene" uid="uid://cmuxj5fekph3w" path="res://planetary/planet.tscn" id="1_05yk7"]
+[ext_resource type="PackedScene" uid="uid://2i5p8470f8bt" path="res://scenes/player.tscn" id="2_6xypp"]
+
+[node name="Main" type="Node3D"]
+
+[node name="Planet" parent="." instance=ExtResource("1_05yk7")]
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("2_6xypp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 436.547, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.960216, 0.279259, 0, -0.279259, 0.960216, 0, 786.477, 0)

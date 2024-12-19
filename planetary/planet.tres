@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://byysafysccivv"]
+
+[ext_resource type="Shader" path="res://planetary/PlanetMaterial.gdshader" id="1_la71o"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_la71o")
+shader_parameter/min_height = null
+shader_parameter/max_height = null

@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8b52m6wcj0bj"]
+
+[ext_resource type="Script" path="res://sockets/socket.gd" id="1_t50vg"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_t50vg")
+
+[node name="debug" type="RichTextLabel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -299.0
+offset_top = 20.0
+offset_right = 307.0
+offset_bottom = 142.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -100.0
+offset_right = 80.0
+offset_bottom = -59.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Send"
+
+[node name="LineEdit" type="LineEdit" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.0
+offset_top = -269.0
+offset_right = 282.0
+offset_bottom = -154.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

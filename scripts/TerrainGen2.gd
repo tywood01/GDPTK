@@ -1,10 +1,11 @@
+@tool
 class_name TerrainGeneration
 extends Node
 
 var mesh : MeshInstance3D
 var size_depth : int = 100
 var size_width : int = 100
-var mesh_resolution : int = 2
+@export var mesh_resolution : int = 0.5
 var HEIGHT_SCALE : int = 50
 
 @export var height : FastNoiseLite
@@ -16,8 +17,14 @@ var HEIGHT_SCALE : int = 50
 
 @export var mymatrial : Material
 
+func _process(delta):
+	if Engine.is_editor_hint():
+		generate()
+
+
 func _ready():
-	generate()
+	if not Engine.is_editor_hint():
+		generate()
 	
 func generate():
 	var plane_mesh = PlaneMesh.new()

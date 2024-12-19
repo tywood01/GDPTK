@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://sm88b6bnulv7"]
+[gd_scene load_steps=8 format=3 uid="uid://sm88b6bnulv7"]
 
-[ext_resource type="Script" path="res://TerrainGen.gd" id="1_0idvw"]
+[ext_resource type="Script" path="res://scripts/TerrainGen2.gd" id="1_0idvw"]
 [ext_resource type="Texture2D" uid="uid://7rhky6q6cmx2" path="res://assets/Textures/sandygrass.jpg" id="2_dwf61"]
 [ext_resource type="PackedScene" uid="uid://2i5p8470f8bt" path="res://scenes/player.tscn" id="2_nt48p"]
-[ext_resource type="Shader" path="res://refactored_terrain_gen.gdshader" id="3_nc3ih"]
-[ext_resource type="Script" path="res://poisson2d.gd" id="5_0wmou"]
+[ext_resource type="Shader" path="res://scripts/refactored_terrain_gen.gdshader" id="3_nc3ih"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ikbb2"]
 seed = 30
@@ -33,6 +32,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.898414, 16.5958, -1.68459)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.529682, 0.848196, 0, -0.848196, 0.529682, 0, 53.4461, 0)
-
-[node name="Node2D" type="Node2D" parent="."]
-script = ExtResource("5_0wmou")
